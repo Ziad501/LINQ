@@ -1,7 +1,4 @@
-﻿using LINQRevision;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using static LINQRevision.ListGenerators;
 namespace LINQBigTask
 {
@@ -169,18 +166,100 @@ namespace LINQBigTask
             foreach (var item in UISHTL) { Console.WriteLine(item); }
             Console.WriteLine("-----------------------------------------------------");
             string[] Arr7 = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight","nine"];
-            var ArrOrdering = Arr7.OrderDescending().OrderBy(p => p.Length).ThenBy(p => p);
+            var ArrOrdering = Arr7.OrderBy(p => p.Length).ThenByDescending(p => p);
             foreach (var item in ArrOrdering)
             {
                 Console.WriteLine(item);
             }
             Console.WriteLine("-----------------------------------------------------");
             string[] Arr8 = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" };
-            var ArrOrdering2 = Arr8.OrderBy(p=>p.Length).ThenBy(p=>p,new CaseInSenstive());
+            var ArrOrdering2 = Arr8.OrderBy(p=>p.Length).ThenByDescending(p=>p,new CaseInSenstive());
             foreach (var item in ArrOrdering2)
             {
                 Console.WriteLine(item);
             }
+            Console.WriteLine("-----------------------------------------------------");
+            var listOfProducts = ProductList.OrderBy(p => p.Category).ThenByDescending(p => p.UnitPrice).Select(p => p.ProductName);
+            foreach (var item in listOfProducts) { Console.WriteLine(item); }
+            Console.WriteLine("-----------------------------------------------------");
+            string[] Arr9 = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" };
+            var SortByLengthThenCase = Arr9.OrderBy(p=>p.Length).ThenBy(p=> p, new CaseInSenstive());
+            Console.WriteLine(string.Join(" ,",SortByLengthThenCase));
+            Console.WriteLine("-----------------------------------------------------");
+            string[] Arr10 = [ "zero", "one", "two", "three", "four", "five", "six", "seven", "eight","nine"];
+            var SecLetter = Arr10.Select(element=> new {  Element = element }).Where(p=>  p.Element[1]=='i').Reverse().ToArray();
+            foreach (var item in SecLetter) { Console.WriteLine(item); }
+            Console.WriteLine("-----------------------------------------------------");
+            Console.WriteLine("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
+            Console.WriteLine("-----------------------------------------------------");
+            //LINQ - Partitioning Operators
+            Console.WriteLine("LINQ - Partitioning Operators");
+            var FirstThreeWashington = CustomerList.SelectMany(p => p.Orders).Take(3);
+            foreach (var item in FirstThreeWashington)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine("-----------------------------------------------------");
+            var AllButFirst2 = CustomerList.SelectMany(p => p.Orders).Skip(2);
+            foreach (var item in AllButFirst2) { Console.WriteLine(item); }
+            Console.WriteLine("-----------------------------------------------------");
+            int[] numbers = [ 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 ];
+            var ElStFrBe = numbers.Select((number,position) => new { number,position }).TakeWhile(p=> p.number > p.position).Select(p=>p.number);
+            Console.WriteLine(string.Join(" ,", ElStFrBe));
+            Console.WriteLine("-----------------------------------------------------");
+            int[] numbers1 = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
+            var DivByThree = numbers1.SkipWhile(p => p % 3 != 0);
+            Console.WriteLine(string.Join(" ,",DivByThree));
+            Console.WriteLine("-----------------------------------------------------");
+            int[] numbers2 = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0 ];
+            var Again = numbers2.Select((number, position) => new { number, position }).Where(p => p.number > p.position).Select(p => p.number);
+            Console.WriteLine(string.Join(" ,",Again));
+            Console.WriteLine("-----------------------------------------------------");
+            Console.WriteLine("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
+            Console.WriteLine("-----------------------------------------------------");
+            Console.WriteLine("LINQ - Projection Operators\r\n");
+            var Slectmany = ProductList.Select(p => p.ProductName);
+            Console.WriteLine(string.Join(" ,", Slectmany));
+            Console.WriteLine("-----------------------------------------------------");
+            string[] words = { "aPPLE", "BlUeBeRrY", "cHeRry" };
+            var UpDown = words.Select(p => p.ToLower()).Concat(words.Select(p=>p.ToUpper()));
+            foreach (var word in UpDown) { Console.WriteLine(word); }
+            Console.WriteLine("-----------------------------------------------------");
+            var SomeProps = ProductList.Select(p => new { Name = p.ProductName, Id = p.ProductID, Price = p.UnitPrice });
+            foreach (var item in SomeProps)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine("-----------------------------------------------------");
+            int[] numbers3 = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
+            var inPlace = numbers3.Select((number , i)=> new { Number = number , Inplace = number == i });
+            Console.WriteLine("In Place?");
+            foreach (var item in inPlace)
+            {
+                Console.WriteLine($"{item.Number} : {item.Inplace}");
+            }
+            Console.WriteLine("-----------------------------------------------------");
+            int[] numbersA = { 0, 2, 4, 5, 6, 8, 9 };
+            int[] numbersB = { 1, 3, 5, 7, 8 };
+            var Pairs = numbersA.SelectMany(a => numbersB.Where(b => a < b).Select(b => (a, b)));
+            foreach (var item in Pairs)
+            {
+                Console.WriteLine($"{item.a} is less than {item.b}");
+            }
+            Console.WriteLine("-----------------------------------------------------");
+            var LessThan500 = CustomerList.SelectMany(p => p.Orders).Where(p => p.Total < 500.00M);
+            foreach (var item in LessThan500) { Console.WriteLine(item); }
+            Console.WriteLine("-----------------------------------------------------");
+            var Before98 = CustomerList.SelectMany(p => p.Orders).Where(p => p.OrderDate < new DateTime(1998, 1, 1)).Select(p=> new { p.OrderID,p.OrderDate });
+            foreach (var item in Before98)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine("-----------------------------------------------------");
+            Console.WriteLine("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
+            Console.WriteLine("-----------------------------------------------------");
+            //LINQ - Quantifiers
+            Console.WriteLine("LINQ - Quantifiers");
         }
     }
 }
