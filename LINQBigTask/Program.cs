@@ -260,6 +260,7 @@ namespace LINQBigTask
             Console.WriteLine("-----------------------------------------------------");
             //LINQ - Quantifiers
             Console.WriteLine("LINQ - Quantifiers");
+            Console.WriteLine("hello");
         }
     }
 }
