@@ -4,7 +4,7 @@ namespace LINQBigTask
 {
     internal class Program
     {
-        static void Main(string[] args) 
+        static void Main(string[] args)
         {
             Console.WriteLine("LINQ - Restriction Operators ");
             //LINQ - Restriction Operators "Deferred execution"
@@ -129,7 +129,7 @@ namespace LINQBigTask
             }
             Console.WriteLine("-----------------------------------------------------");
 
-          var MaxPriceProduct = ProductList.GroupBy(p => p.Category).Select(g => new { g.Key, MaxPrice = g.Max(p => p.UnitPrice), Products = g.Where(p => p.UnitPrice == g.Max(g => g.UnitPrice)) });
+            var MaxPriceProduct = ProductList.GroupBy(p => p.Category).Select(g => new { g.Key, MaxPrice = g.Max(p => p.UnitPrice), Products = g.Where(p => p.UnitPrice == g.Max(g => g.UnitPrice)) });
             foreach (var item in MaxPriceProduct)
             {
                 Console.WriteLine(item.Key);
@@ -143,7 +143,7 @@ namespace LINQBigTask
             double Avg = AvgLength.Average(c => c.Length);
             Console.WriteLine($"Avg Lenght : {Avg}");
             Console.WriteLine("-----------------------------------------------------");
-            var AvgForEachCategory = ProductList.GroupBy(p => p.Category).Select(g=> new {g.Key, AvgPrice = g.Average(p=>p.UnitPrice)});
+            var AvgForEachCategory = ProductList.GroupBy(p => p.Category).Select(g => new { g.Key, AvgPrice = g.Average(p => p.UnitPrice) });
             foreach (var item in AvgForEachCategory)
             {
                 Console.WriteLine($"{item.Key} Avg Price : {item.AvgPrice:C}");
@@ -155,7 +155,7 @@ namespace LINQBigTask
             //LINQ - Ordering Operators
             Console.WriteLine("LINQ - Ordering Operators");
             var PList = ProductList.Select(p => p.ProductName).OrderDescending();
-            Console.WriteLine(string.Join(" \n",PList));
+            Console.WriteLine(string.Join(" \n", PList));
             Console.WriteLine("-----------------------------------------------------");
             string[] Arr6 = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" };
             var sortedWords = Arr6.OrderBy(p => p, new CaseInSenstive());
@@ -165,7 +165,7 @@ namespace LINQBigTask
             var UISHTL = ProductList.Where(p => p.UnitsInStock > 0).Select(p => p.ProductName).OrderDescending();
             foreach (var item in UISHTL) { Console.WriteLine(item); }
             Console.WriteLine("-----------------------------------------------------");
-            string[] Arr7 = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight","nine"];
+            string[] Arr7 = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
             var ArrOrdering = Arr7.OrderBy(p => p.Length).ThenByDescending(p => p);
             foreach (var item in ArrOrdering)
             {
@@ -173,7 +173,7 @@ namespace LINQBigTask
             }
             Console.WriteLine("-----------------------------------------------------");
             string[] Arr8 = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" };
-            var ArrOrdering2 = Arr8.OrderBy(p=>p.Length).ThenByDescending(p=>p,new CaseInSenstive());
+            var ArrOrdering2 = Arr8.OrderBy(p => p.Length).ThenByDescending(p => p, new CaseInSenstive());
             foreach (var item in ArrOrdering2)
             {
                 Console.WriteLine(item);
@@ -183,11 +183,11 @@ namespace LINQBigTask
             foreach (var item in listOfProducts) { Console.WriteLine(item); }
             Console.WriteLine("-----------------------------------------------------");
             string[] Arr9 = { "aPPLE", "AbAcUs", "bRaNcH", "BlUeBeRrY", "ClOvEr", "cHeRry" };
-            var SortByLengthThenCase = Arr9.OrderBy(p=>p.Length).ThenBy(p=> p, new CaseInSenstive());
-            Console.WriteLine(string.Join(" ,",SortByLengthThenCase));
+            var SortByLengthThenCase = Arr9.OrderBy(p => p.Length).ThenBy(p => p, new CaseInSenstive());
+            Console.WriteLine(string.Join(" ,", SortByLengthThenCase));
             Console.WriteLine("-----------------------------------------------------");
-            string[] Arr10 = [ "zero", "one", "two", "three", "four", "five", "six", "seven", "eight","nine"];
-            var SecLetter = Arr10.Select(element=> new {  Element = element }).Where(p=>  p.Element[1]=='i').Reverse().ToArray();
+            string[] Arr10 = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+            var SecLetter = Arr10.Select(element => new { Element = element }).Where(p => p.Element[1] == 'i').Reverse().ToArray();
             foreach (var item in SecLetter) { Console.WriteLine(item); }
             Console.WriteLine("-----------------------------------------------------");
             Console.WriteLine("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
@@ -203,17 +203,17 @@ namespace LINQBigTask
             var AllButFirst2 = CustomerList.SelectMany(p => p.Orders).Skip(2);
             foreach (var item in AllButFirst2) { Console.WriteLine(item); }
             Console.WriteLine("-----------------------------------------------------");
-            int[] numbers = [ 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 ];
-            var ElStFrBe = numbers.Select((number,position) => new { number,position }).TakeWhile(p=> p.number > p.position).Select(p=>p.number);
+            int[] numbers = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0];
+            var ElStFrBe = numbers.Select((number, position) => new { number, position }).TakeWhile(p => p.number > p.position).Select(p => p.number);
             Console.WriteLine(string.Join(" ,", ElStFrBe));
             Console.WriteLine("-----------------------------------------------------");
             int[] numbers1 = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
             var DivByThree = numbers1.SkipWhile(p => p % 3 != 0);
-            Console.WriteLine(string.Join(" ,",DivByThree));
+            Console.WriteLine(string.Join(" ,", DivByThree));
             Console.WriteLine("-----------------------------------------------------");
-            int[] numbers2 = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0 ];
+            int[] numbers2 = [5, 4, 1, 3, 9, 8, 6, 7, 2, 0];
             var Again = numbers2.Select((number, position) => new { number, position }).Where(p => p.number > p.position).Select(p => p.number);
-            Console.WriteLine(string.Join(" ,",Again));
+            Console.WriteLine(string.Join(" ,", Again));
             Console.WriteLine("-----------------------------------------------------");
             Console.WriteLine("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
             Console.WriteLine("-----------------------------------------------------");
@@ -222,7 +222,7 @@ namespace LINQBigTask
             Console.WriteLine(string.Join(" ,", Slectmany));
             Console.WriteLine("-----------------------------------------------------");
             string[] words = { "aPPLE", "BlUeBeRrY", "cHeRry" };
-            var UpDown = words.Select(p => p.ToLower()).Concat(words.Select(p=>p.ToUpper()));
+            var UpDown = words.Select(p => p.ToLower()).Concat(words.Select(p => p.ToUpper()));
             foreach (var word in UpDown) { Console.WriteLine(word); }
             Console.WriteLine("-----------------------------------------------------");
             var SomeProps = ProductList.Select(p => new { Name = p.ProductName, Id = p.ProductID, Price = p.UnitPrice });
@@ -232,7 +232,7 @@ namespace LINQBigTask
             }
             Console.WriteLine("-----------------------------------------------------");
             int[] numbers3 = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
-            var inPlace = numbers3.Select((number , i)=> new { Number = number , Inplace = number == i });
+            var inPlace = numbers3.Select((number, i) => new { Number = number, Inplace = number == i });
             Console.WriteLine("In Place?");
             foreach (var item in inPlace)
             {
@@ -250,7 +250,7 @@ namespace LINQBigTask
             var LessThan500 = CustomerList.SelectMany(p => p.Orders).Where(p => p.Total < 500.00M);
             foreach (var item in LessThan500) { Console.WriteLine(item); }
             Console.WriteLine("-----------------------------------------------------");
-            var Before98 = CustomerList.SelectMany(p => p.Orders).Where(p => p.OrderDate < new DateTime(1998, 1, 1)).Select(p=> new { p.OrderID,p.OrderDate });
+            var Before98 = CustomerList.SelectMany(p => p.Orders).Where(p => p.OrderDate < new DateTime(1998, 1, 1)).Select(p => new { p.OrderID, p.OrderDate });
             foreach (var item in Before98)
             {
                 Console.WriteLine(item);
@@ -260,7 +260,71 @@ namespace LINQBigTask
             Console.WriteLine("-----------------------------------------------------");
             //LINQ - Quantifiers
             Console.WriteLine("LINQ - Quantifiers");
-            Console.WriteLine("hello");
+            string[] Findd = File.ReadAllLines("dictionary_english.txt");
+            bool FindSub = Findd.Any(p => p.Contains("ei"));
+            Console.WriteLine($"Avg Lenght : {FindSub}");
+            Console.WriteLine("-----------------------------------------------------");
+
+            var result12 = ProductList
+                .Where(p => p.UnitsInStock == 0)
+                .GroupBy(p => p.Category)
+                .Select(s => new { Category = s.Key, Product = ProductList.Where(p => p.Category == s.Key) });
+            foreach (var item in result12)
+            {
+                Console.WriteLine($"Categories that have at least one product that is out of stock : {item.Category}");
+                foreach (var item1 in item.Product)
+                {
+                    Console.WriteLine($" --- {item1.ProductName} :: {item1.UnitsInStock}");
+                }
+            }
+            Console.WriteLine("-----------------------------------------------------");
+            var result13 = ProductList.GroupBy(p => p.Category)
+                    .Where(p => p.All(p => p.UnitsInStock != 0))
+                    .Select(p => new { Category = p.Key, Product = p.ToList() });
+            foreach (var item in result13)
+            {
+                Console.WriteLine(item.Category);
+                foreach (var item1 in item.Product)
+                {
+                    Console.WriteLine($" - {item1.ProductName} - {item1.UnitsInStock}");
+                }
+            }
+            //LINQ - Grouping Operators
+            Console.WriteLine("-----------------------------------------------------");
+            Console.WriteLine("-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-");
+            Console.WriteLine("-----------------------------------------------------");
+            Console.WriteLine("LINQ - Grouping Operators");
+            int[] numbers4 = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 };
+            var result14 = numbers.GroupBy(n => n % 5).OrderBy(n => n.Key);
+            foreach (var item in result14)
+            {
+                Console.WriteLine($"Numbers with a remainder of {item.Key} when divided by 5: {string.Join(" ,", item)}");
+            }
+            Console.WriteLine("-----------------------------------------------------");
+            string[] cahracters = File.ReadAllLines("dictionary_english.txt");
+            var result15 = cahracters.GroupBy(p => char.ToLower(p[0]))
+                .OrderBy(p => p.Key);
+            foreach (var item in result15)
+            {
+                Console.WriteLine($"start with '{item.Key}': {string.Join(" ,", item.Take(10))}");
+            }
+            Console.WriteLine("-----------------------------------------------------");
+
+            string[] Arr11 = { "from", "salt", "earn", "last", "near", "form" };
+
+            var groupedWords = Arr11.GroupBy(word => String.Concat(word.OrderBy(c => c)),StringComparer.OrdinalIgnoreCase);
+
+            foreach (var group in groupedWords)
+            {
+                Console.WriteLine("...");
+                foreach (var word in group)
+                {
+                    Console.WriteLine(word);
+                }
+                Console.WriteLine("...");
+                
+            }
         }
     }
+
 }
