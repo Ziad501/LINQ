@@ -7,7 +7,7 @@ namespace LINQBigTask
         static void Main(string[] args)
         {
             Console.WriteLine("LINQ - Restriction Operators ");
-            //LINQ - Restriction Operators "Deferred execution"
+            //LINQ - Restriction Operators
             var OutOfStock = ProductList.Where(p => p.UnitsInStock == 0).ToList();
             foreach (var Product in OutOfStock) { Console.WriteLine(Product); }
             Console.WriteLine("-----------------------------------------------------");
@@ -23,7 +23,7 @@ namespace LINQBigTask
             Console.WriteLine("-----------------------------------------------------");
             Console.WriteLine("LINQ - Element Operators ");
 
-            //LINQ - Element Operators "Immediate execution"
+            //LINQ - Element Operators 
             var FirstOutOfStock = ProductList.FirstOrDefault(p => p.UnitsInStock == 0);
             Console.WriteLine(FirstOutOfStock);
             Console.WriteLine("-----------------------------------------------------");
