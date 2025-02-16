@@ -322,7 +322,7 @@ namespace LINQBigTask
                     Console.WriteLine(word);
                 }
                 Console.WriteLine("...");
-                
+                Console.WriteLine("Does");
             }
         }
     }
