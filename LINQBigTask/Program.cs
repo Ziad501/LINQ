@@ -324,7 +324,7 @@ namespace LINQBigTask
                 Console.WriteLine("...");
                 Console.WriteLine("Does");
             }
+            Console.WriteLine("hello");
         }
     }
-
 }
